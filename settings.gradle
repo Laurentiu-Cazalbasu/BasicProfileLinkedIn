@@ -1,1 +1,1 @@
-include ':app', ':linkedinbasicprofile'
+include ':app'
