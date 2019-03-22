@@ -21,6 +21,7 @@ import com.laurentiucazalbasu.linkedinbasicprofile.models.BasicInformation
 import com.laurentiucazalbasu.linkedinbasicprofile.models.Resource
 import com.laurentiucazalbasu.linkedinbasicprofile.ui.viewmodel.LinkedInViewModel
 import kotlinx.android.synthetic.main.activity_linked_in.*
+import java.net.CookieManager
 import java.net.URL
 
 /**
@@ -106,6 +107,7 @@ class LinkedInInfo : AppCompatActivity() {
                 is Resource.Loading -> showLoading(true)
                 is Resource.Success -> {
                     showLoading(false)
+                    clearCookies()
                     sendProfileInformation(response.data)
                 }
                 is Resource.Error -> {
@@ -114,6 +116,10 @@ class LinkedInInfo : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun clearCookies() {
+
     }
 
     private fun sendProfileInformation(data: BasicInformation) {
@@ -140,7 +146,7 @@ class LinkedInInfo : AppCompatActivity() {
         webSettings.domStorageEnabled = true
         webSettings.javaScriptEnabled = true
         webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
-        webSettings.setAppCacheEnabled(true)
+        webSettings.setAppCacheEnabled(false)
         webView.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
@@ -180,8 +186,6 @@ class LinkedInInfo : AppCompatActivity() {
             }
         }
 
-        WebView.setWebContentsDebuggingEnabled(true)
-        webView.clearHistory()
         webView.loadUrl(url)
     }
 
