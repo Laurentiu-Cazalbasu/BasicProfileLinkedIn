@@ -181,7 +181,6 @@ class LinkedInInfo : AppCompatActivity() {
         }
 
         WebView.setWebContentsDebuggingEnabled(true)
-        webView.clearCache(true)
         webView.clearHistory()
         webView.loadUrl(url)
     }
